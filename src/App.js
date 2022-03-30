@@ -1,24 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import { Container } from "reactstrap";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Navbar from "./components/Navbar";
+import Register from "./pages/Register";
+import { onAuthStateChanged } from "firebase/auth";
+import { useEffect, useState } from "react";
+import firebaseAuth from "./config/firebaeAuth";
+import AuthContext from "./contexts/AuthContext";
 
 function App() {
+  const [authenticatedUser, setAuthenticatedUser] = useState(null);
+
+  useEffect(() => {
+    onAuthStateChanged(firebaseAuth, (user) => {
+      // setAuthenticatedUser(user);
+      setAuthenticatedUser(user);
+    });
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContext.Provider value={authenticatedUser}>
+      <BrowserRouter>
+        <Navbar />
+        <Container className="pt-5">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+          </Routes>
+        </Container>
+      </BrowserRouter>
+    </AuthContext.Provider>
   );
 }
 
