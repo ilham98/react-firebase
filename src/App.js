@@ -8,6 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import firebaseAuth from "./config/firebaeAuth";
 import AuthContext from "./contexts/AuthContext";
+import FileUpload from "./pages/FileUpload";
 
 function App() {
   const [authenticatedUser, setAuthenticatedUser] = useState(null);
@@ -28,6 +29,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+               <Route path="/file-upload" element={<FileUpload />} />
           </Routes>
         </Container>
       </BrowserRouter>

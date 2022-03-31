@@ -37,6 +37,11 @@ function MyNavbar() {
                 Home
               </NavLink>
             </NavItem>
+            <NavItem>
+              <NavLink tag={Link} to="/file-upload">
+                File Upload
+              </NavLink>
+            </NavItem>
             {!userAuthenticated ? (
               <>
                 <NavItem>
